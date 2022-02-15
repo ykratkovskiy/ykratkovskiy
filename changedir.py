@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 import shutil
-import _mkdir
 
 path = '.\directory'
 list_of_files = sorted(os.listdir(path))
@@ -18,4 +17,5 @@ for single_names in list_of_files:
 
 shutil.rmtree('.\directory')
 for fold1,fold2,fl in zip (year,day,filename):
-    Path(f'directory/{fold1}/{fold2}/{fl}').mkdir(parents=True,exist_ok=True)    
+    Path(f'directory/{fold1}/{fold2}/').mkdir(parents=True,exist_ok=True)
+    Path(f'directory/{fold1}/{fold2}/{fl}').touch()
