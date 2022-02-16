@@ -1,9 +1,13 @@
+from importlib.metadata import files
 import click
 from datetime import datetime
 import random
 from random import randint
 import enum
 from loguru import logger
+import os
+from pathlib import Path
+
 
 logger.add('debug.log', format='{time}{level}{message}', level = 'DEBUG')
 
@@ -56,6 +60,34 @@ def toy()-> str:
     print (f'{color_list.name} {toy_list.name}')
 
 
+@click.command()
+def mkdir():
+    Path('directory').mkdir(exist_ok=True)
+    for i in range(10):
+        Path(f'directory/'
+        f'{randint(2020, 2022)}-'
+        f'{randint(1,12)}-'
+        f'{randint(1, 31)}.txt'
+        ).touch()
+
+
+@click.command()
+def changedir():
+    path = '.\directory'
+    list_of_files = sorted(os.listdir(path))
+
+    for file in list_of_files:
+        fold1 = (file.split('-')[0])
+        fold2 = (file.split('-')[1])
+        fl = (file.split('-')[2])
+        Path(f'directory/{fold1}/{fold2}/ ').mkdir(parents=True,exist_ok=True)
+        path1 = f'.\directory\\{file}'
+        path2 = f'.\directory\\{fold1}\\{fold2}\\{fl}'
+        os.replace(path1,path2)
+
+
 cli.add_command(newyear)
 cli.add_command(toy)
+cli.add_command(mkdir)
+cli.add_command(changedir)
 cli.main()
