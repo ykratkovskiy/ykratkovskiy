@@ -1,4 +1,5 @@
-from sqlalchemy import insert,select,and_, or_, not_,delete,update
+from httpx import Limits
+from sqlalchemy import insert,select,and_, or_, not_,delete,update,desc
 from db import Base,engine,execute
 from models import User, Address
 from heapq import nlargest
@@ -18,24 +19,11 @@ def insert_many_users():
     execute (query,users_data) 
 # insert_many_users()    
 
-
-def select_age():
-    query = select(User.age)
-    with engine.connect() as conn:
-        cursor = conn.execute(query)
-        ages = list(cursor)
-        t_ages = (nlargest(3,ages))
-        return t_ages
-t_ages=select_age()
-print (t_ages)
-q1 = [str(item) for sub in t_ages for item in sub]
-
 def select_users():    
     query =( 
-    select(User.name)
+    select(User.name).order_by(User.age.desc()).limit(3)
         # .join(Address)
         .where(
-            (User.age.between(min(q1),max(q1)))&
             (User.gender=='male') &
             ((User.name.like ('Y%')) |
             (User.name.like('A%')))
