@@ -1,51 +1,53 @@
 import tkinter as tk
-from tkinter import StringVar, filedialog
+from tkinter import  StringVar, filedialog
 import os
 from tkinter import messagebox
 import shutil
 import re
-
+import time
 
 
 window = tk.Tk()
 window.title('Report manager')
-window.geometry('390x150')
-window.resizable(width=False, height=False)
+window.geometry('480x180')
+window.resizable(width=True, height=True)
 
 
 def source_button():
-    global source_path
     filename = filedialog.askdirectory()
     source_path.set(filename)
     
 source_path = StringVar()
-lbl1 = tk.Label(textvariable=source_path)
-lbl1.grid(row=2, column=1)
-button1 = tk.Button(text="Select source folder", command=source_button,width=15,height=1)
-button1.grid(row=2, column=0)
+source_label = tk.Label(textvariable=source_path)
+source_label.grid(row=2, column=1)
+
+source_buttn = tk.Button(text="Select source folder", command=source_button,width=15,height=1)
+source_buttn.grid(row=2, column=0)
 
 
 def target_button():
-    target_path
     filename = filedialog.askdirectory()
     target_path.set(filename)
     
 target_path = StringVar()
-lbl2 = tk.Label(textvariable=target_path)
-lbl2.grid(row=4, column=1)
-button2 = tk.Button(text="Select target folder", command=target_button,width=15,height=1)
-button2.grid(row=4, column=0)
+target_label = tk.Label(textvariable=target_path)
+target_label.grid(row=4, column=1)
+
+target_buttn = tk.Button(text="Select target folder", command=target_button,width=15,height=1)
+target_buttn.grid(row=4, column=0)
 
 
-lbl3 = tk.Label(
-                text='REPORT MANAGER', 
-                bg='gray90', font=24,
-                fg='indianred',
+head_label = tk.Label(
+                text='Report manager tool', 
+                font=24,
+                fg='turquoise3',
+                
                 )
-lbl3.grid(row=0, column=1)
+head_label.grid(row=0, column=0)
 
 
 def report_manager():
+    start_time = time.time()
     try:
         path = source_path.get()
         list_of_files = sorted(os.listdir(path))
@@ -92,10 +94,11 @@ def report_manager():
             rol_str = ''.join(rol_id)
             stat_file.writelines(f'Rol {rol_str} - {codes} codes\n')
         stat_file.write(f'Total codes used: {sum(num_of_codes)}\n')
-        stat_file.write(f'Total number of NOREAD\'s deleted: {sum(num_of_noreads)}')
+        # stat_file.write(f'Total number of NOREAD\'s deleted: {sum(num_of_noreads)}')
         stat_file.close()
         original_file.close()
-        messagebox.showinfo(title='Done', message=f'Total codes used: {sum(num_of_codes)}')
+        messagebox.showinfo(title='Success!', message=f'Done in {round (time.time()-start_time,2)} sec')
+        
     except FileNotFoundError:
         messagebox.showinfo(title='Error!', message=f"Source folder hasn't been selected")
     except NameError:
@@ -104,7 +107,7 @@ def report_manager():
         messagebox.showinfo(title='Error!', message=f"Target folder hasn't been selected")
     
 
-button = tk.Button(
+start_buttn = tk.Button(
                 text = 'Start',
                 font=20,
                 width = 13,
@@ -112,22 +115,25 @@ button = tk.Button(
                 bg = 'gray85',
                 fg = 'gray10', 
                 command=report_manager)
-button.grid(row=6, column=1)
+start_buttn.grid(row=6, column=1)
 
 
 def archive_button():
+    start_time=time.time()
     try:
         shutil.make_archive(f'{src}/{name_for_rep}%','zip', root_dir=None, base_dir=trg)
     except NameError:
         messagebox.showinfo(title='Error!', message=f'No data to archive found')
+    else:
+        messagebox.showinfo(title=f'Success!', message=f'Done in {round (time.time()-start_time,2)} sec')
     
 
-button3 = tk.Button(text="Archive files", 
+archive_buttn = tk.Button(text="Archive files", 
                     command=archive_button,
                     width=13,
                     height=1,
                     )
-button3.grid(row=10, column=1)
+archive_buttn.grid(row=12, column=1)
 
 
 window.mainloop()
