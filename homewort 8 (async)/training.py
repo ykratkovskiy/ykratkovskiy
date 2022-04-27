@@ -68,9 +68,9 @@ async def main():
         await asyncio.gather(
         users(f'https://jsonplaceholder.typicode.com/users/{i}'),
         posts(f'https://jsonplaceholder.typicode.com/users/{i}/posts'),
-        comments(f'https://jsonplaceholder.typicode.com/posts/{i}/comments'),
+        # comments(f'https://jsonplaceholder.typicode.com/posts/{i}/comments'),
         albums(f'https://jsonplaceholder.typicode.com/users/{i}/albums'),
-        photos(f'https://jsonplaceholder.typicode.com/albums/{i}/photos'),
+        # photos(f'https://jsonplaceholder.typicode.com/albums/{i}/photos'),
         todos(f'https://jsonplaceholder.typicode.com/users/{i}/todos')
         )
         

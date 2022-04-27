@@ -5,10 +5,9 @@ def NotEqualLen(q,w):
         raise NotEqualLen('Количество катетов не равно!')
 
 class nonposit(Exception):
-    pass
-def nonposit(e):
-    if e<=0:
-        raise nonposit('Катет не может быть отрицательным или равным нулю!')
+    def nonposit(e):
+        if e<=0:
+            raise nonposit('Катет не может быть отрицательным или равным нулю!')
 try:
     a = list(map(int,input('Введите последовательно значения катетов треугольников через запятую:').split(',')))
 except ValueError:
