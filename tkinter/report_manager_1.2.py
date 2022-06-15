@@ -9,7 +9,7 @@ import time
 
 window = tk.Tk()
 window.title('Report manager')
-window.geometry('480x180')
+window.geometry('460x180+600+200')
 window.resizable(width=True, height=True)
 
 
@@ -21,7 +21,7 @@ source_path = StringVar()
 source_label = tk.Label(textvariable=source_path)
 source_label.grid(row=2, column=1)
 
-source_buttn = tk.Button(text="Select source folder", command=source_button,width=15,height=1)
+source_buttn = tk.Button(text="Select source folder", command=source_button,width=16,height=1)
 source_buttn.grid(row=2, column=0)
 
 
@@ -33,13 +33,13 @@ target_path = StringVar()
 target_label = tk.Label(textvariable=target_path)
 target_label.grid(row=4, column=1)
 
-target_buttn = tk.Button(text="Select target folder", command=target_button,width=15,height=1)
+target_buttn = tk.Button(text="Select target folder", command=target_button,width=16,height=1)
 target_buttn.grid(row=4, column=0)
 
 
 head_label = tk.Label(
                 text='Report manager tool', 
-                font=24,
+                font=36,
                 fg='turquoise3',
                 
                 )
@@ -97,14 +97,14 @@ def report_manager():
         # stat_file.write(f'Total number of NOREAD\'s deleted: {sum(num_of_noreads)}')
         stat_file.close()
         original_file.close()
-        messagebox.showinfo(title='Success!', message=f'Done in {round (time.time()-start_time,2)} sec')
+        messagebox.showerror(title='Success!', message=f'Done in {round (time.time()-start_time,2)} sec')
         
     except FileNotFoundError:
-        messagebox.showinfo(title='Error!', message=f"Source folder hasn't been selected")
+        messagebox.showerror(title='Error!', message=f"Source folder hasn't been selected")
     except NameError:
-        messagebox.showinfo(title='Error!', message=f'No appropriate data found in source folder')
+        messagebox.showerror(title='Error!', message=f'No appropriate data found in source folder')
     except PermissionError:
-        messagebox.showinfo(title='Error!', message=f"Target folder hasn't been selected")
+        messagebox.showerror(title='Error!', message=f"Target folder hasn't been selected")
     
 
 start_buttn = tk.Button(
@@ -123,9 +123,9 @@ def archive_button():
     try:
         shutil.make_archive(f'{src}/{name_for_rep}%','zip', root_dir=None, base_dir=trg)
     except NameError:
-        messagebox.showinfo(title='Error!', message=f'No data to archive found')
+        messagebox.showerror(title='Error!', message=f'No data to archivation found')
     else:
-        messagebox.showinfo(title=f'Success!', message=f'Done in {round (time.time()-start_time,2)} sec')
+        messagebox.showerror(title=f'Success!', message=f'Done in {round (time.time()-start_time,2)} sec')
     
 
 archive_buttn = tk.Button(text="Archive files", 
