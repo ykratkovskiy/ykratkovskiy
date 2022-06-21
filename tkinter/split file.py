@@ -3,6 +3,12 @@ from tkinter import messagebox
 import os
 from tkinter import  StringVar, filedialog
 from turtle import bgcolor
+from os import path
+import time
+from webbrowser import open_new
+
+from click import open_file
+
         
        
 window = tk.Tk()
@@ -52,17 +58,48 @@ my_entries = []
 helplist =[]
 
 
+
 def write_and_run():
-    for entries in helplist:
-        try:
-            my_entries.append(int(entries.get()))
-        except ValueError:
+    try:
+        start_time = time.time()
+        global full_name
+        global name
+        c=0
+        for entries in helplist:
+            try:
+                my_entries.append(int(entries.get()))
+            except ValueError:
                 messagebox.showerror(title='Error!', message=f"Значением кодов в роле должно быть целое положительное число!",
                 onclick=window.quit())
-        for value in my_entries:
-            if value < 0:
-                raise messagebox.showerror(title='Error!', message=f"Значением кодов в роле должно быть целое положительное число!",
-                onclick=window.quit())
+            for value in my_entries:
+                if value < 0:
+                    raise messagebox.showerror(title='Error!', message=f"Значением кодов в роле должно быть целое положительное число!",
+                    onclick=window.quit())
+    
+        src = source_path.get()
+        trg = target_path.get()
+    
+        full_name = path.basename(f'{src}')
+        name = path.splitext(full_name)[0]
+    
+        dir_path = path.dirname(src)
+    
+    
+        original_file = open(f'{dir_path}/{full_name}','r')
+        for i in range(len(my_entries)):
+            new_file = open(f'{trg}/{name} rol {i+1}.txt', 'w')
+            c = my_entries[i]
+            for j in range (1,c+1):
+                new_file.write(original_file.readline())
+        original_file.close()
+        new_file.close()
+        messagebox.showinfo(title='Файл разбит', message=f'Успешно выполнено за {round (time.time()-start_time,2)} сек',onclick=window.quit())
+    
+    except Exception:
+        messagebox.showerror(title='Ошибка!', message=f"Что-то пошло не так...")
+
+
+
 
 
 def ok_button():
@@ -89,4 +126,3 @@ window, text='OK',command=ok_button,width=8,height=1,foreground='darkgreen').gri
 
 
 window.mainloop()
-print (my_entries)

@@ -97,7 +97,7 @@ def report_manager():
         # stat_file.write(f'Total number of NOREAD\'s deleted: {sum(num_of_noreads)}')
         stat_file.close()
         original_file.close()
-        messagebox.showerror(title='Success!', message=f'Done in {round (time.time()-start_time,2)} sec')
+        messagebox.showinfo(title='Success!', message=f'Done in {round (time.time()-start_time,2)} sec')
         
     except FileNotFoundError:
         messagebox.showerror(title='Error!', message=f"Source folder hasn't been selected")
