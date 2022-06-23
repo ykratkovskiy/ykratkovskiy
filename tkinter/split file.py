@@ -1,60 +1,57 @@
-from operator import index
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import E,W, messagebox
 from tkinter import  StringVar, filedialog
 from os import path
 import time
 
-        
-       
+
 window = tk.Tk()
 window.resizable(width=True, height=True)
 window.geometry('+550+80')
 window.title('Split file')
 
 
-
-source_label_msg = tk.Label(window, text='Выберите исходный файл для разбивки',foreground='maroon',font=18)
-source_label_msg.grid(row=0, columnspan=3)
+source_label_msg = tk.Label(window, text='Выберите исходный файл для разбивки',foreground='maroon',font=('Arial',14))
+source_label_msg.grid(row=0, columnspan=4,pady=5)
 
 def source_button():
     filename = filedialog.askopenfilename()
     source_path.set(filename)
 source_buttn = tk.Button(text='Выбрать', command=source_button,width=16,height=1,foreground='maroon')
-source_buttn.grid(row=1, columnspan=3)
+source_buttn.grid(row=1, columnspan=4,padx=5,pady=5)
 
 source_path = StringVar()
-source_label = tk.Label(textvariable=source_path,foreground='maroon')
-source_label.grid(row=2, columnspan=3)
+source_label = tk.Label(textvariable=source_path,foreground='maroon',font=('Arial',14))
+source_label.grid(row=2, columnspan=4)
 
 
 
-target_label_msg = tk.Label(window, text='Выберите директорию для готовых файлов',foreground='royalblue1',font=18)
-target_label_msg.grid(row=3, columnspan=3)
+target_label_msg = tk.Label(window, text='Выберите директорию для готовых файлов',foreground='royalblue1',font=('Arial',14))
+target_label_msg.grid(row=3, columnspan=4)
 
 def target_button():
     pathdirectory = filedialog.askdirectory()
     target_path.set(pathdirectory)
 target_buttn = tk.Button(text='Выбрать', command=target_button,width=16,height=1,foreground='royalblue1')
-target_buttn.grid(row=4, columnspan=3)
+target_buttn.grid(row=4, columnspan=4,padx=5,pady=5)
 
 target_path = StringVar()
-target_label = tk.Label(textvariable=target_path,foreground='royalblue1')
-target_label.grid(row=5, columnspan=3)
+target_label = tk.Label(textvariable=target_path,foreground='royalblue1',font=('Arial',14))
+target_label.grid(row=5, columnspan=4)
 
 
-label = tk.Label(window, text='Введите номера первого и последнено роля в диапазоне',foreground='darkgreen',font=18)
-label.grid(row=6, columnspan=3,)
+label = tk.Label(window, text='Введите номера первого и последнено роля в диапазоне',foreground='darkgreen',font=('Arial',14))
+label.grid(row=6, columnspan=4,padx=10)
 
-label_min = tk.Label(window, text='Первый:',foreground='darkgreen',font=18)
-label_min.grid(row=7, column=0,)
-rol_min = tk.Entry(window, width=8)
-rol_min.grid(row=7, column=1)
+label_min = tk.Label(window, text='Первый:',foreground='darkgreen',font=14)
+label_min.grid(row=7, column=0,sticky=E)
+rol_min = tk.Entry(window, width=5)
+rol_min.grid(row=7, column=1,sticky=W)
 
-label_max = tk.Label(window, text='Последний:',foreground='darkgreen',font=18)
-label_max.grid(row=7, column=2,)
-rol_max = tk.Entry(window, width=8)
-rol_max.grid(row=7, column=3)
+label_max = tk.Label(window, text='Последний:',foreground='darkgreen',font=14)
+label_max.grid(row=7, column=2,sticky=E)
+rol_max = tk.Entry(window, width=5)
+rol_max.grid(row=7, column=3,sticky=W)
 
 
 my_entries = []
@@ -118,20 +115,19 @@ def ok_button():
             messagebox.showerror(title='Error!', message=f'Значение "первого" роля должно быть меньше значения "второго" роля!',
             onclick=window.quit())
         for i in range (rol_minint-1,rol_maxint):
-            label_rols = tk.Label(window, text=f'Введите количество кодов в роле № {i+1}').grid(row=i+10, column=0)
-            entry_mult = tk.Entry(window)
-            entry_mult.grid(row=i+10, column=1)
+            label_rols = tk.Label(window, text=f'Введите количество кодов в роле № {i+1}').grid(row=i+10, column=1,sticky=E)
+            entry_mult = tk.Entry(window,width=10)
+            entry_mult.grid(row=i+10, column=2,sticky=W)
             helplist.append(entry_mult)
             button_apply_values = tk.Button(
-            window, text='Запустить программу', command=write_and_run).grid(row=(dif+1000), columnspan=3)  
+            window, text='Запустить программу', command=write_and_run).grid(row=(dif+1000), columnspan=4,pady=15)  
             
     except ValueError:
         messagebox.showerror(title='Error!', message=f'Значением количества ролей должно быть целое положительное число!',
         onclick=window.quit())
    
 button_ok = tk.Button(
-window, text='OK',command=ok_button,width=8,height=1,foreground='darkgreen').grid(row=9, columnspan=3)
+window, text='Ввести',command=ok_button,width=8,height=1,foreground='darkgreen').grid(row=7, columnspan=43,padx=10,pady=15)
 
 
 window.mainloop()
-print ()
