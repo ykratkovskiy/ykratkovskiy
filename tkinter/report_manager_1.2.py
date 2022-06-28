@@ -9,42 +9,38 @@ import time
 
 window = tk.Tk()
 window.title('Report manager')
-window.geometry('460x180+600+200')
+window.geometry('500x300+600+200')
 window.resizable(width=True, height=True)
+
+
+head_label = tk.Label(
+                text='Report manager tool', 
+                font=('Arial',14),
+                fg='darkblue')
+head_label.grid(row=0, columnspan=1,padx=170, pady=5)
 
 
 def source_button():
     filename = filedialog.askdirectory()
     source_path.set(filename)
     
+source_buttn = tk.Button(text="Select source folder", command=source_button,width=16,height=1)
+source_buttn.grid(row=1, columnspan=1,padx=170, pady=5)
+
 source_path = StringVar()
 source_label = tk.Label(textvariable=source_path)
-source_label.grid(row=2, column=1)
-
-source_buttn = tk.Button(text="Select source folder", command=source_button,width=16,height=1)
-source_buttn.grid(row=2, column=0)
-
+source_label.grid(row=2, columnspan=1,padx=170, pady=5)
 
 def target_button():
     filename = filedialog.askdirectory()
     target_path.set(filename)
     
+target_buttn = tk.Button(text="Select target folder", command=target_button,width=16,height=1)
+target_buttn.grid(row=4, columnspan=1,padx=170, pady=5)
+
 target_path = StringVar()
 target_label = tk.Label(textvariable=target_path)
-target_label.grid(row=4, column=1)
-
-target_buttn = tk.Button(text="Select target folder", command=target_button,width=16,height=1)
-target_buttn.grid(row=4, column=0)
-
-
-head_label = tk.Label(
-                text='Report manager tool', 
-                font=36,
-                fg='turquoise3',
-                
-                )
-head_label.grid(row=0, column=0)
-
+target_label.grid(row=5, columnspan=1,padx=170, pady=5)
 
 def report_manager():
     start_time = time.time()
@@ -115,7 +111,7 @@ start_buttn = tk.Button(
                 bg = 'gray85',
                 fg = 'gray10', 
                 command=report_manager)
-start_buttn.grid(row=6, column=1)
+start_buttn.grid(row=6, columnspan=1,padx=170, pady=5)
 
 
 def archive_button():
@@ -133,7 +129,6 @@ archive_buttn = tk.Button(text="Archive files",
                     width=13,
                     height=1,
                     )
-archive_buttn.grid(row=12, column=1)
-
+archive_buttn.grid(row=7, columnspan=1,padx=170, pady=5)
 
 window.mainloop()
