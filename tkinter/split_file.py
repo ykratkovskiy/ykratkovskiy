@@ -3,7 +3,6 @@ from tkinter import E,W, messagebox, VERTICAL
 from tkinter import  StringVar, filedialog
 from os import path
 import time
-from turtle import onclick
 
 
 window = tk.Tk()
@@ -82,14 +81,14 @@ def enter_button():
         if rol_maxint<0 or rol_minint<0:
             raise messagebox.showerror(title='Error!', message=f'Значения не могут быть отрицательными!')
         if rol_maxint<=rol_minint:
-            messagebox.showerror(title='Error!', message=f'Значение "первого" роля должно быть меньше значения "второго" роля!')
+            raise messagebox.showerror(title='Error!', message=f'Значение "первого" роля должно быть меньше значения "второго" роля!')
         for i in range (rol_minint-1,rol_maxint):
             label_rols = tk.Label(frame, text=f'Введите количество кодов в роле № {i+1}').grid(row=i+10, column=1,sticky=E)
             entry_mult = tk.Entry(frame,width=10)
             entry_mult.grid(row=i+10, column=2,sticky=W)
             list_of_entries.append(entry_mult)
             run_button = tk.Button(
-            frame, text='Запустить программу', command=write_and_run).grid(row=((rol_maxint-rol_minint)+1000), columnspan=4,pady=15)  
+            frame, text='Запустить программу', command=write_and_run).grid(row=rol_maxint+11, columnspan=4, pady=15)  
     except ValueError:
         messagebox.showerror(title='Error!', message=f'Введенным значением должно быть целое положительное число!')
         
@@ -108,10 +107,10 @@ def write_and_run():
         
         try:
             my_entries = [int(entries.get()) for entries in list_of_entries if int(entries.get())>=0]
-        except ValueError: messagebox.showerror(title='Error!', message=f'Значением кодов в роле должно быть целое положительное число!')
+        except ValueError: messagebox.showerror(title='Error!', message=f'Значением количества кодов в роле должно быть целое положительное число!')
         
         if len(list_of_entries)!=len(my_entries):
-            raise messagebox.showerror(title='Error!', message=f'Значением кодов в роле должно быть целое положительное число!')
+            raise messagebox.showerror(title='Error!', message=f'Значением количества кодов в роле должно быть целое положительное число!')
 
         src = source_path.get()
         trg = target_path.get()
