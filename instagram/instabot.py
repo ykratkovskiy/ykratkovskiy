@@ -29,7 +29,7 @@ def hashtag_search(username, password, hashtag):
 
         try:
             browser.get(f'https://www.instagram.com/explore/tags/{hashtag}')
-            time.sleep(15)
+            time.sleep(random.randrange(4,7))
             
             hrefs = browser.find_elements(By.TAG_NAME,'a')
 
@@ -38,9 +38,9 @@ def hashtag_search(username, password, hashtag):
             
             for url in posts_urls[0:5]:
                 browser.get(url)
-                time.sleep(8)
+                time.sleep(random.randrange(5,9))
                 like_button = browser.find_element(By.CSS_SELECTOR,'section:first-child span button').click()
-                time.sleep(10)
+                time.sleep(random.randrange(5,8))
                             
         except Exception as ex:
             print (ex)
@@ -55,5 +55,4 @@ def hashtag_search(username, password, hashtag):
         browser.close()
         browser.quit()
 
-hashtag_search(username, password,'belarus')
-
+hashtag_search(username, password,'belarustravel')
