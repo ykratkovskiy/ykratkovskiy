@@ -17,8 +17,6 @@ users_data = req_users.json()
 for i in users_data:
     lst_of_id.append(i['id'])
 
-
-
 async def users(url):
     async with httpx.AsyncClient() as client:
         resp = await client.get(url)
