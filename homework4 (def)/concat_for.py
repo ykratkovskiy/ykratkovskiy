@@ -6,6 +6,7 @@ def inspect(f):
         retvalue:  {res}''')
         return res
     return inner
+
 @inspect
 def concat (*args:str,reversed:bool)->str:
     result=''
